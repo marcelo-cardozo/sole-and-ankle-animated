@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
+import {keyframes} from "styled-components";
 
 const ShoeCard = ({
   slug,
@@ -34,13 +35,15 @@ const ShoeCard = ({
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
-        <ImageWrapper>
-          <Image alt="" src={imageSrc} />
+        <ImageFlagWrapper>
+          <ImageWrapper>
+            <Image alt="" src={imageSrc} />
+          </ImageWrapper>
           {variant === 'on-sale' && <SaleFlag>Sale</SaleFlag>}
           {variant === 'new-release' && (
             <NewFlag>Just released!</NewFlag>
           )}
-        </ImageWrapper>
+        </ImageFlagWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
@@ -73,15 +76,30 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+`;
 
-const ImageWrapper = styled.div`
+const ImageFlagWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img`
-  width: 100%;
+const ImageWrapper = styled.div`
+  overflow: hidden;
   border-radius: 16px 16px 4px 4px;
+`;
+
+const Image = styled.img`
+  display: block;
+  width: 100%;
+  will-change: transform, filter;
+  transform-origin: 50% 90%;
+  transition: transform ease-in 500ms, filter ease-in 500ms;
+  
+  ${Link}:hover & {
+    transform: scale(1.1);
+    filter: opacity(50%);
+    transition: transform ease-out 200ms, filter ease-out 200ms;
+  }
 `;
 
 const Row = styled.div`
@@ -109,6 +127,15 @@ const SalePrice = styled.span`
   color: var(--color-primary);
 `;
 
+const zooming = keyframes`
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.25);
+  }
+`;
+
 const Flag = styled.div`
   position: absolute;
   top: 12px;
@@ -121,6 +148,10 @@ const Flag = styled.div`
   font-weight: ${WEIGHTS.bold};
   color: var(--color-white);
   border-radius: 2px;
+  
+  ${Link}:hover & {
+     animation: ${zooming} 500ms alternate infinite ease-in-out;
+  }
 `;
 
 const SaleFlag = styled(Flag)`
