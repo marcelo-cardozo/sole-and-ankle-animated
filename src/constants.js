@@ -28,3 +28,7 @@ export const QUERIES = {
   tabletAndSmaller: `(max-width: ${BREAKPOINTS.tablet / 16}rem)`,
   laptopAndSmaller: `(max-width: ${BREAKPOINTS.laptop / 16}rem)`,
 };
+
+export const REDUCED_MOTION = {
+  NO_PREFERENCE: `(prefers-reduced-motion: no-preference)`
+}

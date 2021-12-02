@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { WEIGHTS } from '../../constants';
+import {REDUCED_MOTION, WEIGHTS} from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
 import {keyframes} from "styled-components";
@@ -91,14 +91,17 @@ const ImageWrapper = styled.div`
 const Image = styled.img`
   display: block;
   width: 100%;
-  will-change: transform, filter;
-  transform-origin: 50% 90%;
-  transition: transform ease-in 500ms, filter ease-in 500ms;
-  
-  ${Link}:hover & {
-    transform: scale(1.1);
-    filter: opacity(50%);
-    transition: transform ease-out 200ms, filter ease-out 200ms;
+
+  @media ${REDUCED_MOTION.NO_PREFERENCE}{
+    will-change: transform, filter;
+    transform-origin: 50% 90%;
+    transition: transform ease-in 500ms, filter ease-in 500ms;
+
+    ${Link}:hover &, ${Link}:focus & {
+      transform: scale(1.1);
+      filter: opacity(50%);
+      transition: transform ease-out 200ms, filter ease-out 200ms;
+    }
   }
 `;
 
@@ -149,8 +152,10 @@ const Flag = styled.div`
   color: var(--color-white);
   border-radius: 2px;
   
-  ${Link}:hover & {
-     animation: ${zooming} 500ms alternate infinite ease-in-out;
+  @media ${REDUCED_MOTION.NO_PREFERENCE}{
+    ${Link}:hover &, ${Link}:focus & {
+      animation: ${zooming} 500ms alternate infinite ease-in-out;
+    } 
   }
 `;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import {QUERIES, REDUCED_MOTION, WEIGHTS} from '../../constants';
 import Logo from '../Logo';
 import Icon from '../Icon';
 import UnstyledButton from '../UnstyledButton';
@@ -114,16 +114,71 @@ const Filler = styled.div`
   }
 `;
 
-const NavLink = styled.a`
+function NavLink({href, children}) {
+  return (
+    <NavLinkWrapper href={href}>
+      <LinkFront>{children}</LinkFront>
+      <LinkBack>{children}</LinkBack>
+    </NavLinkWrapper>
+  )
+}
+
+const NavLinkWrapper = styled.a`
+  position: relative;
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
+  overflow: hidden;
   color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
 
   &:first-of-type {
     color: var(--color-secondary);
   }
 `;
+
+const LinkFront = styled.span`
+  display: inline-block;
+  font-weight: ${WEIGHTS.medium};
+  transition: opacity 500ms ease-in;
+  
+  ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
+    opacity: 0;
+    transition: opacity 500ms ease-out;
+  }
+  
+  @media ${REDUCED_MOTION.NO_PREFERENCE} {
+    backface-visibility: hidden;
+    transition: transform 300ms ease-in;
+
+    ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
+      transform: translateY(-100%);
+      transition: transform 100ms ease-out;
+    }  
+  }
+`
+
+const LinkBack = styled.span`
+  display: inline-block;
+  font-weight: ${WEIGHTS.bold};
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+  
+  ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
+    opacity: 1;
+    transition: opacity 500ms ease-out;
+  }
+  
+  @media ${REDUCED_MOTION.NO_PREFERENCE} {
+    top: 100%;
+    transition: transform 300ms ease-in;
+    
+    ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
+      transform: translateY(-100%);
+      transition: transform 100ms ease-out;
+    }
+  }
+`
 
 export default Header;
