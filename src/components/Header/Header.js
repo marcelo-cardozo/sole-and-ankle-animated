@@ -147,12 +147,12 @@ const LinkFront = styled.span`
   }
   
   @media ${REDUCED_MOTION.NO_PREFERENCE} {
-    backface-visibility: hidden;
     transition: transform 300ms ease-in;
 
     ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
+      opacity: revert;
       transform: translateY(-100%);
-      transition: transform 100ms ease-out;
+      transition: transform 200ms ease-out;
     }  
   }
 `
@@ -171,12 +171,14 @@ const LinkBack = styled.span`
   }
   
   @media ${REDUCED_MOTION.NO_PREFERENCE} {
-    top: 100%;
+    opacity: revert;
+    top: 0;
+    transform: translateY(100%);
     transition: transform 300ms ease-in;
     
     ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
-      transform: translateY(-100%);
-      transition: transform 100ms ease-out;
+      transform: translateY(0%);
+      transition: transform 200ms ease-out;
     }
   }
 `
