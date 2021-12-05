@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, {keyframes} from 'styled-components/macro';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import {REDUCED_MOTION, WEIGHTS} from '../../constants';
 
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
@@ -36,6 +35,24 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
   );
 };
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+`
+
 const Overlay = styled(DialogOverlay)`
   position: fixed;
   top: 0;
@@ -45,6 +62,11 @@ const Overlay = styled(DialogOverlay)`
   background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+  animation: ${fadeIn} 600ms ease-out forwards;
+  
+  @media ${REDUCED_MOTION.NO_PREFERENCE} {
+    animation-duration: 400ms;
+  }
 `;
 
 const Content = styled(DialogContent)`
@@ -54,6 +76,16 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+  
+  @media ${REDUCED_MOTION.NO_PREFERENCE} {
+    animation: ${slideIn} 300ms ease-out both;
+    animation-delay: 300ms;
+
+    & > * {
+      animation: ${fadeIn} 300ms ease-in-out both;
+      animation-delay: 500ms;
+    }  
+  } 
 `;
 
 const CloseButton = styled(UnstyledButton)`

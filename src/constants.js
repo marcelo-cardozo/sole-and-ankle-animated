@@ -30,5 +30,6 @@ export const QUERIES = {
 };
 
 export const REDUCED_MOTION = {
-  NO_PREFERENCE: `(prefers-reduced-motion: no-preference)`
+  NO_PREFERENCE: `(prefers-reduced-motion: no-preference)`,
+  REDUCE: `(prefers-reduced-motion: reduce)`
 }
