@@ -92,7 +92,7 @@ const Image = styled.img`
   display: block;
   width: 100%;
 
-  @media ${REDUCED_MOTION.NO_PREFERENCE}{
+  @media (hover: hover) and ${REDUCED_MOTION.NO_PREFERENCE}{
     will-change: transform, filter;
     transform-origin: 50% 90%;
     transition: transform ease-in 500ms, filter ease-in 500ms;
@@ -152,7 +152,7 @@ const Flag = styled.div`
   color: var(--color-white);
   border-radius: 2px;
   
-  @media ${REDUCED_MOTION.NO_PREFERENCE}{
+  @media (hover: hover) and ${REDUCED_MOTION.NO_PREFERENCE}{
     ${Link}:hover &, ${Link}:focus & {
       animation: ${zooming} 500ms alternate infinite ease-in-out;
     } 

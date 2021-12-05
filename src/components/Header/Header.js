@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import {QUERIES, REDUCED_MOTION, WEIGHTS} from '../../constants';
+import {QUERIES} from '../../constants';
 import Logo from '../Logo';
 import Icon from '../Icon';
 import UnstyledButton from '../UnstyledButton';
 import SuperHeader from '../SuperHeader';
 import MobileMenu from '../MobileMenu';
 import VisuallyHidden from '../VisuallyHidden';
+import NavLink from "../NavLinkV2";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -113,74 +114,5 @@ const Filler = styled.div`
     display: none;
   }
 `;
-
-function NavLink({href, children}) {
-  return (
-    <NavLinkWrapper href={href}>
-      <LinkFront>{children}</LinkFront>
-      <LinkBack>{children}</LinkBack>
-    </NavLinkWrapper>
-  )
-}
-
-const NavLinkWrapper = styled.a`
-  position: relative;
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  overflow: hidden;
-  color: var(--color-gray-900);
-
-  &:first-of-type {
-    color: var(--color-secondary);
-  }
-`;
-
-const LinkFront = styled.span`
-  display: inline-block;
-  font-weight: ${WEIGHTS.medium};
-  transition: opacity 500ms ease-in;
-  
-  ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
-    opacity: 0;
-    transition: opacity 500ms ease-out;
-  }
-  
-  @media ${REDUCED_MOTION.NO_PREFERENCE} {
-    transition: transform 300ms ease-in;
-
-    ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
-      opacity: revert;
-      transform: translateY(-100%);
-      transition: transform 200ms ease-out;
-    }  
-  }
-`
-
-const LinkBack = styled.span`
-  display: inline-block;
-  font-weight: ${WEIGHTS.bold};
-  position: absolute;
-  left: 0;
-  opacity: 0;
-  transition: opacity 500ms ease-in;
-  
-  ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
-    opacity: 1;
-    transition: opacity 500ms ease-out;
-  }
-  
-  @media ${REDUCED_MOTION.NO_PREFERENCE} {
-    opacity: revert;
-    top: 0;
-    transform: translateY(100%);
-    transition: transform 300ms ease-in;
-    
-    ${NavLinkWrapper}:hover &, ${NavLinkWrapper}:focus & {
-      transform: translateY(0%);
-      transition: transform 200ms ease-out;
-    }
-  }
-`
 
 export default Header;
