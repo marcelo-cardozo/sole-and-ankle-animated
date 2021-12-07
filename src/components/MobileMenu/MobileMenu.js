@@ -53,6 +53,15 @@ const slideIn = keyframes`
   }
 `
 
+const closingDoor = keyframes`
+  from {
+    transform: perspective(1100px) rotateY(-90deg);
+  }
+  to {
+    transform: perspective(1100px) rotateY(0deg);
+  }
+`
+
 const Overlay = styled(DialogOverlay)`
   position: fixed;
   top: 0;
@@ -78,9 +87,10 @@ const Content = styled(DialogContent)`
   flex-direction: column;
   
   @media ${REDUCED_MOTION.NO_PREFERENCE} {
-    animation: ${slideIn} 300ms ease-out both;
+    transform-origin: 100% 50%;
+    animation: ${closingDoor} 500ms ease-out both;
     animation-delay: 300ms;
-
+    
     & > * {
       animation: ${fadeIn} 300ms ease-in-out both;
       animation-delay: 500ms;
