@@ -18,17 +18,17 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
         </CloseButton>
         <Filler />
         <Nav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLink position={1} href="/sale">Sale</NavLink>
+          <NavLink position={2} href="/new">New&nbsp;Releases</NavLink>
+          <NavLink position={3} href="/men">Men</NavLink>
+          <NavLink position={4} href="/women">Women</NavLink>
+          <NavLink position={5} href="/kids">Kids</NavLink>
+          <NavLink position={6} href="/collections">Collections</NavLink>
         </Nav>
         <Footer>
-          <SubLink href="/terms">Terms and Conditions</SubLink>
-          <SubLink href="/privacy">Privacy Policy</SubLink>
-          <SubLink href="/contact">Contact Us</SubLink>
+          <SubLink position={7} href="/terms">Terms and Conditions</SubLink>
+          <SubLink position={8} href="/privacy">Privacy Policy</SubLink>
+          <SubLink position={9} href="/contact">Contact Us</SubLink>
         </Footer>
       </Content>
     </Overlay>
@@ -46,7 +46,7 @@ const fadeIn = keyframes`
 
 const slideIn = keyframes`
   from {
-    transform: translateX(100%);
+    transform: translateX(200%);
   }
   to {
     transform: translateX(0%);
@@ -111,10 +111,20 @@ const Nav = styled.nav`
   gap: 16px;
 `;
 
-const NavLink = styled.a`
+
+
+const Link = styled.a`
+  text-decoration: none;
+
+  @media ${REDUCED_MOTION.NO_PREFERENCE} {
+    animation: ${slideIn} 500ms both ease-out;
+    animation-delay: ${({position}) => 700 + position * 60}ms
+  }
+`
+
+const NavLink = styled(Link)`
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
-  text-decoration: none;
   font-size: 1.125rem;
   text-transform: uppercase;
 
@@ -134,10 +144,9 @@ const Footer = styled.footer`
   justify-content: flex-end;
 `;
 
-const SubLink = styled.a`
+const SubLink = styled(Link)`
   color: var(--color-gray-700);
   font-size: 0.875rem;
-  text-decoration: none;
 `;
 
 export default MobileMenu;
